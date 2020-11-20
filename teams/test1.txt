@@ -1,0 +1,42 @@
+Tyranitar @ Assault Vest  
+Ability: Sand Stream  
+Level: 50  
+EVs: 252 HP / 252 Atk / 4 SpD  
+Adamant Nature  
+- Rock Slide  
+- Superpower  
+- Thunder Punch  
+- Lash Out  
+
+Regieleki @ Magnet  
+Ability: Transistor  
+Level: 50  
+EVs: 220 HP / 4 Def / 252 SpA / 4 SpD / 28 Spe  
+Modest Nature  
+IVs: 0 Atk  
+- Protect  
+- Electroweb  
+- Volt Switch  
+- Thunderbolt  
+
+Dracovish @ Choice Band  
+Ability: Sand Rush  
+Level: 50  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Adamant Nature  
+- Fishious Rend  
+- Crunch  
+- Psychic Fangs  
+- Outrage  
+
+Dragapult @ Life Orb  
+Ability: Clear Body  
+Level: 50  
+EVs: 252 Atk / 4 SpD / 252 Spe  
+Jolly Nature  
+- Protect  
+- Dragon Darts  
+- Phantom Force  
+- Fly  
+
+

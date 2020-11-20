@@ -113,5 +113,7 @@ test/*
 # Pyre type checker
 .pyre/
 
+#login file
+login.txt
 # End of https://www.gitignore.io/api/python
 

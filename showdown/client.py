@@ -436,6 +436,12 @@ class Client(user.User):
                         transient=True
                     )
 
+            #Pokemon info
+            elif inp_type == 'poke':
+                self.add_task(
+                    self.on_poke(params)
+                )
+
             #add content to proper room
             if isinstance(self.rooms.get(room_id, None), room.Room):
                 self.rooms[room_id].add_content(inp)
@@ -1012,4 +1018,21 @@ class Client(user.User):
         Notes:
             Does nothing by default.
         """
+        pass
+
+    async def on_poke(self, params):
+        """
+        |coro|
+
+        Hook for subclasses. Called when the client receives a pokemon object
+        from the server.
+
+        Args:
+            params (:obj:`list`) : List of the parameters associated with the
+                inp_type. Ex: a user leave has params of ['zarel'], where 'zarel'
+                represents the user id of the user that left.
+
+        Notes:
+            Does nothing by default.
+        """ 
         pass
