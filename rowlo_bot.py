@@ -10,12 +10,20 @@ import logging
 import asyncio
 from pprint import pprint
 
+
+
+p1_team = []
+p2_team = []
+
+
 if len(sys.argv) == 2:
-    print(sys.argv[1])
+    battle_team = sys.argv[1]
+else:
+    battle_team = "./teams/test1.txt"
 
 logging.basicConfig(level=logging.INFO)
 with open('login.txt', 'rt') as f,\
-     open('./teams/test1.txt', 'rt') as team:
+     open(battle_team, 'rt') as team:
     username, password = f.read().strip().splitlines()
     vgc_team = team.read()
 
@@ -45,9 +53,18 @@ class ChallengeClient(showdown.Client):
             await room_obj.say('Oh my, look at the time! Gotta go, gg.')
             await room_obj.forfeit()
             await room_obj.leave()
+            p1_team = []
+            p2_team = []
 
 
     async def on_poke(self, params):
-        print("Poke: " + str(params))
+        print(params[0])
+        if params[0] == 'p1':
+            p1_team.append(params[1].split(',')[0])
+            print(p1_team)
+        else:
+            p2_team.append(params[1].split(',')[0])
+            print(p2_team)
+            
 
 ChallengeClient(name=username, password=password).start()
