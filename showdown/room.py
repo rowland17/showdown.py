@@ -426,7 +426,7 @@ class Battle(Room):
         last move or switch. The player must be on of the players in the battle
         for this to work.
         """
-        await self.client.use_comand(self.id, 'undo',
+        await self.client.use_command(self.id, 'undo',
             delay=delay, lifespan=lifespan)
 
     @utils.require_client

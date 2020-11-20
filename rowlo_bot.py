@@ -50,9 +50,9 @@ class ChallengeClient(showdown.Client):
     async def on_room_init(self, room_obj):
         if room_obj.id.startswith('battle-'):
             await asyncio.sleep(3)
-            await room_obj.say('Oh my, look at the time! Gotta go, gg.')
-            await room_obj.forfeit()
-            await room_obj.leave()
+#            await room_obj.say('Oh my, look at the time! Gotta go, gg.')
+#            await room_obj.forfeit()
+#            await room_obj.leave()
             p1_team = []
             p2_team = []
 
@@ -65,6 +65,20 @@ class ChallengeClient(showdown.Client):
         else:
             p2_team.append(params[1].split(',')[0])
             print(p2_team)
-            
+
+
+    async def on_teampreview(self, params):
+        print("hello")
+
+
+    async def on_turn(self, room_obj, params):
+        await room_obj.switch('3')
+
+
+    async def on_faint(self, room_obj, params):
+        await room_obj.switch('3')
+
+    async def on_receive(self, room_id, inp_type, params):
+        print("Input type: " + str(inp_type) + " Params: " + str(params))
 
 ChallengeClient(name=username, password=password).start()

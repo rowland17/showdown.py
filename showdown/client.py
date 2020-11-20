@@ -442,6 +442,24 @@ class Client(user.User):
                     self.on_poke(params)
                 )
 
+            elif inp_type == 'teampreview':
+                self.add_task(
+                    self.on_teampreview(params)
+                )
+
+            elif inp_type == 'turn':
+                room_obj = self.rooms[room_id]
+                self.add_task(
+                    self.on_turn(room_obj, params)
+                )
+
+            elif inp_type == 'faint':
+                room_obj = self.rooms[room_id]
+                self.add_task(
+                    self.on_faint(room_obj, params)
+                )
+
+
             #add content to proper room
             if isinstance(self.rooms.get(room_id, None), room.Room):
                 self.rooms[room_id].add_content(inp)
@@ -687,6 +705,7 @@ class Client(user.User):
         """
         await self.add_output('{}|/forfeit'.format(battle_id),
             delay=delay, lifespan=lifespan)
+
 
     # # # # # # #
     # Messages  #
@@ -1036,3 +1055,49 @@ class Client(user.User):
             Does nothing by default.
         """ 
         pass
+
+    async def on_teampreview(self, params):
+        """
+        |coro|
+
+        Hook for subclasses. Called when time to choose from team preview"
+
+        Args:
+            params (:obj:`list`) : List of the parameters associated with the
+                inp_type. In this case, often just the number of mons allowed.
+
+        Notes:
+            Does nothing by default.
+        """
+        pass
+
+    async def on_turn(self, room_obj, params):
+        """
+        |coro|
+
+        Hook for subclasses. Called when time to choose a move"
+
+        Args:
+            params (:obj:`list`) : List of the parameters associated with the
+                inp_type. In this case, often just the number of mons allowed.
+
+        Notes:
+            Does nothing by default.
+        """
+        pass
+
+    async def on_faint(self, room_obj, params):
+        """
+        |coro|
+
+        Hook for subclasses. Called when time to choose a move"
+
+        Args:
+            params (:obj:`list`) : List of the parameters associated with the
+                inp_type. In this case, often just the number of mons allowed.
+
+        Notes:
+            Does nothing by default.
+        """
+        pass
+
