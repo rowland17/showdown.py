@@ -404,6 +404,36 @@ class Battle(Room):
             delay=delay, lifespan=lifespan)
 
     @utils.require_client
+    async def double_attack(self, attack_id, target, attack_id2, target2, client=None,
+        delay=0, lifespan=math.inf):
+        """
+        |coro|
+
+        Uses the specified client or the object's client to switch into a
+        different pokemon. The client must be one of the players in the battle
+        for this to work.
+        """
+
+        await self.client.use_command(self.id, 'choose', 'move {} {}'
+            .format(switch_id, target), 'move {} {}'.format(switch_id2, target2),
+            delay=delay, lifespan=lifespan)
+
+    @utils.require_client
+    async def double_switch(self, switch_id, switch_id2, client=None,
+        delay=0, lifespan=math.inf):
+        """
+        |coro|
+
+        Uses the specified client or the object's client to switch into a
+        different pokemon. The client must be one of the players in the battle
+        for this to work.
+        """
+
+        await self.client.use_command(self.id, 'choose', 'switch {}'
+            .format(switch_id), 'switch {}'.format(switch_id2),
+            delay=delay, lifespan=lifespan)
+
+    @utils.require_client
     async def move(self, move_id, mega=False, client=None,
         delay=0, lifespan=math.inf):
         """

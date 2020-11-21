@@ -437,14 +437,19 @@ class Client(user.User):
                     )
 
             #Pokemon info
+            elif inp_type == 'player':
+                self.add_task(
+                    self.on_player(params)
+                )
             elif inp_type == 'poke':
                 self.add_task(
                     self.on_poke(params)
                 )
 
             elif inp_type == 'teampreview':
+                room_obj = self.rooms[room_id]
                 self.add_task(
-                    self.on_teampreview(params)
+                    self.on_teampreview(room_obj, params)
                 )
 
             elif inp_type == 'turn':
@@ -1039,6 +1044,24 @@ class Client(user.User):
         """
         pass
 
+    async def on_player(self, params):
+        """
+        |coro|
+
+        Hook for subclasses. Called when the client receives a pokemon object
+        from the server.
+
+        Args:
+            params (:obj:`list`) : List of the parameters associated with the
+                inp_type. Ex: a user leave has params of ['zarel'], where 'zarel'
+                represents the user id of the user that left.
+
+        Notes:
+            Does nothing by default.
+        """ 
+        pass
+
+
     async def on_poke(self, params):
         """
         |coro|
@@ -1056,7 +1079,7 @@ class Client(user.User):
         """ 
         pass
 
-    async def on_teampreview(self, params):
+    async def on_teampreview(self, room_obj,  params):
         """
         |coro|
 
