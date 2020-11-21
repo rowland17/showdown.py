@@ -8,6 +8,8 @@ import showdown
 import sys
 import logging
 import asyncio
+import random
+
 from pprint import pprint
 from pokemon import *
 
@@ -28,6 +30,7 @@ global p2_team
 print ("test")
 p1_team = []
 p2_team = []
+global poke_on_field
 
 
 if len(sys.argv) == 2:
@@ -64,12 +67,14 @@ class ChallengeClient(showdown.Client):
     async def on_room_init(self, room_obj):
         global p1_team
         global p2_team
+        global poke_on_field
         if room_obj.id.startswith('battle-'):
 #            await room_obj.say('Oh my, look at the time! Gotta go, gg.')
 #            await room_obj.forfeit()
 #            await room_obj.leave()
             p1_team = []
             p2_team = []
+            poke_on_field = []
 
     
     async def on_player(self, params):
@@ -94,13 +99,19 @@ class ChallengeClient(showdown.Client):
 
 
     async def on_teampreview(self, room_obj, params):
+        global myTeam
         global p1_team
-        print(p1_team)
+        global p2_team
+        if myTeam:
+            poke_on_field.append(2) #to match 2134 below...
+            poke_on_field.append(1)
+        else:
+            poke_on_field.append(2) #to match 2134 below...
+            poke_on_field.append(1)
         await room_obj.start_poke("2134")
         
 
     #TODO attack_switch, switch_attack, double_attack
-
 
 
     #TODO make more sensible switches. 
@@ -110,10 +121,21 @@ class ChallengeClient(showdown.Client):
         global p2_team
         print("p1_team_empty")
         print(p1_team)
-        if myTeam:
-            await room_obj.double_switch(p1_team[2].name, p1_team[3].name)
+        #rand = random.randint(0, 1)
+        rand = 1
+        if rand == 0:
+            if myTeam:
+                await room_obj.double_switch(p1_team[2].name, p1_team[3].name)
+            else:
+                await room_obj.double_switch(p2_team[3].name, p2_team[2].name)
+        elif rand == 1:
+            if myTeam:
+                await room_obj.double_attack(p1_team[poke_on_field[0]-1].moves[2], '1', p1_team[poke_on_field[1]-1].moves[2], '1')
+            else:
+                await room_obj.double_attack(p2_team[poke_on_field[0]-1].moves[2], '1', p2_team[poke_on_field[1]-1].moves[2], '1')
         else:
-            await room_obj.double_switch(p2_team[3].name, p2_team[2].name)
+            print("BAD RAND NUMBER - TURN")
+        
 
 
     #TODO make more sensible switches. 
