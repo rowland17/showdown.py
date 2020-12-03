@@ -452,6 +452,11 @@ class Client(user.User):
                     self.on_teampreview(room_obj, params)
                 )
 
+            elif inp_type == 'request':
+                room_obj = self.rooms[room_id]
+                self.add_task(
+                    self.on_request(room_obj, params)
+                )
             elif inp_type == 'turn':
                 room_obj = self.rooms[room_id]
                 self.add_task(
@@ -1124,3 +1129,24 @@ class Client(user.User):
         """
         pass
 
+    async def on_request(self, room_id, params):
+        """
+        |coro|
+
+        Hook for subclasses. Called when the client receives any data from the
+        server.
+
+        Args:
+            room_id (:obj:`str`) : ID of the room with which the information is
+                associated with. Messages with unspecified IDs default to '
+                lobby', though may not necessarily be associated with 'lobby'.
+            inp_type (:obj:`str`) : The type of information received.
+                Ex: 'l' (user leave), 'j' (user join), 'c:' (chat message)
+            params (:obj:`list`) : List of the parameters associated with the
+                inp_type. Ex: a user leave has params of ['zarel'], where 'zarel'
+                represents the user id of the user that left.
+
+        Notes:
+            Does nothing by default.
+        """
+        pass
